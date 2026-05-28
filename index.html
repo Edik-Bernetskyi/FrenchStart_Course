@@ -338,7 +338,6 @@ body {
 </head>
 <body>
 
-<!-- Навігаційне меню -->
 <div class="sidebar">
     <div class="sidebar-header">
         <h1>Le Français</h1>
@@ -360,10 +359,8 @@ body {
     </div>
 </div>
 
-<!-- Основний контент -->
 <div class="main-content">
 
-    <!-- Екран: Головна панель -->
     <div id="screen-home" class="screen active-screen">
         <div class="welcome-banner">
             <div class="welcome-content">
@@ -376,13 +373,12 @@ body {
         <div class="lesson-grid" id="lessonGrid"></div>
     </div>
 
-    <!-- Контейнер для динамічного завантаження уроків та тестів -->
     <div id="lessonView" class="screen"></div>
 
 </div>
 
 <script>
-// РОЗШИРЕНА БАЗА ДАНИХ КУРСУ (6 УРОКІВ)
+// БАЗА ДАНИХ КУРСУ (6 УРОКІВ)
 const lessonsData = [
     {
         title: "Урок 1 — Основи комунікації та ввічливість",
@@ -424,7 +420,7 @@ const lessonsData = [
         img: "https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=800&auto=format&fit=crop",
         theory: `
             <h3>🔢 Особливості французької системи лічби</h3>
-            <p>Французька лічба — одна з найцікавіших у світі. На перших етапах вона стандартна, але починаючи з числа 70, французи використовують математичну логіку. Наприклад, щоб сказати "сімдесят", вони кажуть "шістдесят і десять" (soixante-dix). А "вісімдесят" — це "чотири рази по двадцять" (quatre-vingts).</p>
+            <p>Французька лічба — одна з найцікавіших у світі. На перших етапах вона стандартна, але починаючи з числа 70, французи використовують математичну логіку. Наприклад, щоб сказати "сімдесят", вони кажуть "шістдесят і десять" (soixante-dix). А "вісімдесят" — це "чотири рази по двадчять" (quatre-vingts).</p>
             <h3>⏳ Вік та години</h3>
             <p>На відміну від української мови, де ми кажемо "Мені є 20 років", французи використовують дієслово <strong>avoir</strong> (мати). Дослівно вони кажуть: "Я маю 20 років" -> <em>J'ai vingt ans</em>.</p>
         `,
@@ -514,7 +510,7 @@ const lessonsData = [
     },
     {
         title: "Урок 5 — Хобі, захоплення та вільний час",
-        shortDesc: "Обговорення активного відпочинку, спорту, музики та побудови фраз із дієсловом faire.",
+        shortDesc: "Обговорення активного відпочинку, спорті, музики та побудови фраз із дієсловом faire.",
         img: "https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=800&auto=format&fit=crop",
         theory: `
             <h3>🎸 Захоплення та спорт з дієсловом Faire</h3>
@@ -733,7 +729,7 @@ function openLesson(idx, btnElement) {
     window.scrollTo(0, 0);
 }
 
-// ФУНКЦІЯ СТВОРЕННЯ ТА ЗАТУСКАННЯ ФІНАЛЬНОГО ТЕСТУ
+// ФУНКЦІЯ СТВОРЕННЯ ТА ЗАПУСКУ ФІНАЛЬНОГО ТЕСТУ
 function openFinalTest(btnElement) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
@@ -762,9 +758,9 @@ function openFinalTest(btnElement) {
     };
 
     view.innerHTML = `
-        <div class="lesson-header" style="height: 240px;">
-            <img src="https://images.unsplash.com/photo-1428360913557-3c36ab1315ec?q=80&w=1200&auto=format&fit=crop" alt="Final exam">
-            <div class="lesson-header-overlay">
+        <div class="lesson-header" style="height: 320px;">
+            <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1200&auto=format&fit=crop" alt="Final exam" style="object-position: center 60%;">
+            <div class="lesson-header-overlay" style="background: linear-gradient(transparent, rgba(11,15,25,0.95));">
                 <h2>🏆 Глобальний підсумковий іспит</h2>
             </div>
         </div>
@@ -793,7 +789,7 @@ function speakFrench(text) {
         utterance.rate = 0.85; 
         window.speechSynthesis.speak(utterance);
     } else {
-        alert("На жаль, ваш браузер не підтримує аудіо-вимову.");
+        alert("На жаль, ваш browser не підтримує аудіо-вимову.");
     }
 }
 
@@ -861,7 +857,7 @@ function renderQuizResults() {
         if (percentage === 100) feedback = "🥇 Фантастично! Ви справжній експерт, курс засвоєно на ідеальному рівні!";
         else if (percentage >= 80) feedback = "🎉 Чудовий результат! Ви володієте впевненою базою французької мови.";
         else if (percentage >= 50) feedback = "📈 Добре, але є прогалини. Бажано переглянути словники окремих уроків.";
-        else feedback = "📚 Рекомендуємо пройти модулі курсу ще раз, щоб краще закріпити матеріал.";
+        else feedback = "📚 Рекомендуємо пройти модулі курсу ще раз, щоб краще зафіксувати матеріал.";
     } else {
         if (percentage === 100) feedback = "🏆 Чудово! Ідеальний результат!";
         else if (percentage >= 75) feedback = "✨ Дуже добре! Ти маєш глибокі знання.";
