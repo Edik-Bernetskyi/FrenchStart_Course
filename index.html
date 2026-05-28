@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FrenchStart — Курс французької</title>
+<style>
+body{
+font-family:Arial,sans-serif;
+margin:0;
+background:#0f172a;
+color:white;
+}
+header{
+padding:40px;
+text-align:center;
+background:linear-gradient(90deg,#2563eb,#7c3aed);
+}
+header h1{
+font-size:52px;
+margin:0;
+}
+.container{
+padding:30px;
+max-width:1300px;
+margin:auto;
+}
+.lesson-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+}
+.lesson-card{
+background:#1e293b;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 0 15px rgba(0,0,0,0.4);
+transition:0.3s;
+}
+.lesson-card:hover{
+transform:translateY(-5px);
+}
+.lesson-card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+.lesson-content{
+padding:20px;
+}
+button{
+background:#2563eb;
+color:white;
+border:none;
+padding:12px 18px;
+border-radius:12px;
+cursor:pointer;
+font-size:16px;
+}
+button:hover{
+background:#1d4ed8;
+}
+.lesson-page{
+display:none;
+padding:30px;
+}
+.active{
+display:block;
+}
+.quiz{
+margin-top:20px;
+background:#111827;
+padding:20px;
+border-radius:15px;
+}
+.answer{
+display:block;
+margin:10px 0;
+padding:10px;
+background:#334155;
+border-radius:10px;
+cursor:pointer;
+}
+.answer:hover{
+background:#475569;
+}
+.result{
+margin-top:10px;
+font-weight:bold;
+}
+.back{
+margin-top:20px;
+}
+.text-block{
+line-height:1.8;
+color:#e2e8f0;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🇫🇷 FrenchStart</h1>
+<p>Великий інтерактивний курс французької мови</p>
+</header>
+
+<div class="container" id="home">
+<div class="lesson-grid">
+
+<script>
+const lessons = [
+{
+title:"Урок 1 — Привітання",
+img:"https://images.unsplash.com/photo-1499856871958-5b9627545d1a",
+text:`Французька мова починається з базових привітань. 
+Bonjour означає «Добрий день», а Salut — «Привіт». 
+У Франції дуже важливо вітатися ввічливо. 
+Також потрібно знати фрази Merci — дякую та Au revoir — до побачення.
+
+Французька вимова відрізняється від української. 
+Букви часто читаються не так, як пишуться. 
+Тому важливо слухати вимову та повторювати слова вголос.
+
+Приклади:
+Bonjour, je m'appelle Marie.
+Salut! Comment ça va?
+Merci beaucoup!`,
+question:"Що означає Bonjour?",
+answers:["Привіт","Добрий день","Дякую"],
+correct:1
+},
+{
+title:"Урок 2 — Числа",
+img:"https://images.unsplash.com/photo-1502920917128-1aa500764cbd",
+text:`У французькій мові числа дуже важливі для покупок, віку та часу.
+
+1 — un
+2 — deux
+3 — trois
+10 — dix
+20 — vingt
+
+Французи часто використовують числа у повсякденному житті:
+J’ai quinze ans — Мені 15 років.
+
+Потрібно тренуватись вимовляти числа швидко.`,
+question:"Як французькою буде число 2?",
+answers:["Deux","Trois","Cinq"],
+correct:0
+},
+{
+title:"Урок 3 — Сім’я",
+img:"https://images.unsplash.com/photo-1511895426328-dc8714191300",
+text:`Сім’я французькою — famille.
+
+Mère — мама
+Père — тато
+Frère — брат
+Sœur — сестра
+
+Приклад:
+Ma famille est grande.
+J’aime ma mère.
+
+У французькій мові важливі артиклі та правильна вимова.`,
+question:"Як французькою сказати «брат»?",
+answers:["Père","Frère","Sœur"],
+correct:1
+},
+{
+title:"Урок 4 — Їжа",
+img:"https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+text:`Французька кухня відома у всьому світі.
+
+Pain — хліб
+Fromage — сир
+Eau — вода
+Café — кава
+
+У кафе часто використовують фразу:
+Je voudrais un café.
+
+Це означає «Я хотів би каву».`,
+question:"Що означає Fromage?",
+answers:["Вода","Сир","Кава"],
+correct:1
+},
+{
+title:"Урок 5 — Подорожі",
+img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+text:`Подорожі допомагають практикувати мову.
+
+Train — потяг
+Bus — автобус
+Rue — вулиця
+
+Питання:
+Où est la gare?
+Де вокзал?
+
+Потрібно знати назви транспорту та місць.`,
+question:"Що означає Train?",
+answers:["Потяг","Автобус","Машина"],
+correct:0
+},
+{
+title:"Урок 6 — Щоденні дії",
+img:"https://images.unsplash.com/photo-1494526585095-c41746248156",
+text:`Щоденні дії описують наше життя.
+
+Dormir — спати
+Étudier — вчитись
+Manger — їсти
+
+Приклад:
+Je vais à l’école.
+Je mange à midi.
+
+Французькі дієслова потрібно вивчати регулярно.`,
+question:"Що означає Dormir?",
+answers:["Спати","Їсти","Бігти"],
+correct:0
+},
+{
+title:"Урок 7 — Магазин",
+img:"https://images.unsplash.com/photo-1521334884684-d80222895322",
+text:`У магазині важливо знати ціни та одяг.
+
+Chemise — сорочка
+Chaussures — взуття
+Prix — ціна
+
+Combien ça coûte?
+Скільки це коштує?`,
+question:"Що означає Prix?",
+answers:["Одяг","Ціна","Сумка"],
+correct:1
+},
+{
+title:"Урок 8 — Хобі",
+img:"https://images.unsplash.com/photo-1516280440614-37939bbacd81",
+text:`Французи люблять говорити про хобі.
+
+Musique — музика
+Sport — спорт
+Film — фільм
+
+J’aime la musique française.
+Я люблю французьку музику.`,
+question:"Що означає Musique?",
+answers:["Музика","Фільм","Гра"],
+correct:0
+},
+{
+title:"Урок 9 — Майбутнє",
+img:"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
+text:`Майбутній час у французькій допомагає говорити про плани.
+
+Demain — завтра
+Voyager — подорожувати
+
+Je vais voyager à Paris.
+Я збираюсь подорожувати до Парижа.`,
+question:"Що означає Demain?",
+answers:["Вчора","Завтра","Сьогодні"],
+correct:1
+},
+{
+title:"Урок 10 — Повторення",
+img:"https://images.unsplash.com/photo-1513258496099-48168024aec0",
+text:`Останній урок повторює всі теми курсу.
+
+Тепер ти знаєш:
+- привітання
+- числа
+- їжу
+- сім’ю
+- подорожі
+
+Bravo! Tu as terminé le cours!`,
+question:"Що означає Bravo?",
+answers:["Молодець","Помилка","Привіт"],
+correct:0
+}
+];
+
+document.write(lessons.map((lesson,index)=>`
+<div class="lesson-card">
+<img src="${lesson.img}">
+<div class="lesson-content">
+<h2>${lesson.title}</h2>
+<p>Інтерактивний урок з тестом та практикою.</p>
+<button onclick="openLesson(${index})">Відкрити урок</button>
+</div>
+</div>
+`).join(''));
+</script>
+
+</div>
+</div>
+
+<div id="lessonPages"></div>
+
+<script>
+const pages = document.getElementById('lessonPages');
+
+pages.innerHTML = lessons.map((lesson,index)=>`
+<div class="lesson-page" id="lesson${index}">
+<h1>${lesson.title}</h1>
+<img src="${lesson.img}" style="width:100%;max-height:400px;object-fit:cover;border-radius:20px;">
+<div class="text-block">
+<p>${lesson.text.replaceAll('\n','</p><p>')}</p>
+</div>
+
+<div class="quiz">
+<h2>🧠 Тест</h2>
+<p>${lesson.question}</p>
+
+${lesson.answers.map((ans,i)=>`
+<div class="answer" onclick="checkAnswer(${index},${i})">${ans}</div>
+`).join('')}
+
+<div class="result" id="result${index}"></div>
+</div>
+
+<button class="back" onclick="goHome()">⬅ Назад</button>
+</div>
+`).join('');
+
+function openLesson(index){
+document.getElementById('home').style.display='none';
+document.querySelectorAll('.lesson-page').forEach(p=>p.style.display='none');
+document.getElementById('lesson'+index).style.display='block';
+window.scrollTo(0,0);
+}
+
+function goHome(){
+document.getElementById('home').style.display='block';
+document.querySelectorAll('.lesson-page').forEach(p=>p.style.display='none');
+window.scrollTo(0,0);
+}
+
+function checkAnswer(lesson,answer){
+const result=document.getElementById('result'+lesson);
+if(answer===lessons[lesson].correct){
+result.innerHTML='✅ Правильна відповідь!';
+result.style.color='#22c55e';
+}else{
+result.innerHTML='❌ Неправильно. Спробуй ще.';
+result.style.color='#ef4444';
+}
+}
+</script>
+
+</body>
+</html>
