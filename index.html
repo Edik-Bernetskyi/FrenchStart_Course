@@ -43,13 +43,12 @@ body {
 }
 
 .sidebar-header {
-    padding: 25px;
+    padding: 30px 25px;
     background: linear-gradient(135deg, #1e40af, #6d28d9);
     text-align: center;
 }
 
 .sidebar-header h1 { font-size: 26px; font-weight: 800; letter-spacing: 0.5px; }
-.sidebar-header p { font-size: 12px; color: #e2e8f0; margin-top: 5px; opacity: 0.9; }
 
 .sidebar-menu {
     overflow-y: auto;
@@ -203,21 +202,6 @@ body {
 }
 .lesson-header h2 { font-size: 40px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
-/* Video Container */
-.video-wrapper {
-    margin: 30px 0;
-    position: relative;
-    padding-bottom: 56.25%; 
-    height: 0;
-    overflow: hidden;
-    border-radius: 16px;
-    border: 1px solid #22314d;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-}
-.video-wrapper iframe {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
-}
-
 .content-section {
     background-color: var(--bg-card);
     border-radius: 16px;
@@ -357,7 +341,6 @@ body {
 <div class="sidebar">
     <div class="sidebar-header">
         <h1>🇫🇷 FrenchStart</h1>
-        <p>Навчальна Екосистема v2.5</p>
     </div>
     <div class="sidebar-menu" id="sidebarMenu">
         <div class="menu-title">Головна сторінка</div>
@@ -377,26 +360,25 @@ body {
     <div id="screen-home" class="screen active-screen">
         <div class="welcome-banner">
             <h2>Bonjour, mon ami! 👋</h2>
-            <p>Ласкаво просимо на оновлену інтерактивну платформу. Тепер у кожен модуль інтегровано інтерактивні французькі словники для розширеного аналізу слів та реальні відеоуроки. Проходь теорію, слухай правильну вимову та перевіряй себе в тестах.</p>
+            <p>Ласкаво просимо на оновлену інтерактивну платформу. Тут інтегровано інтерактивні французькі словники для глибокого аналізу лексики. Проходь теорію, слухай правильну вимову, використовуй картки для запам'ятовування та перевіряй себе в тестах.</p>
         </div>
         
         <h2 style="margin-bottom: 20px; font-size: 24px;">🗂 Доступні навчальні модулі</h2>
         <div class="lesson-grid" id="lessonGrid"></div>
     </div>
 
-    <!-- Контейнер для динамічного завантаження великих уроків -->
+    <!-- Контейнер для динамічного завантаження уроків -->
     <div id="lessonView" class="screen"></div>
 
 </div>
 
 <script>
-// ОНОВЛЕНА БАЗА ДАНИХ З РЕАЛЬНИМИ ВІДЕО ТА ПРАВИЛЬНИМИ ПОСИЛАННЯМИ НА СЛОВНИКИ[cite: 1]
+// БАЗА ДАНИХ КУРСУ
 const lessonsData = [
     {
         title: "Урок 1 — Основи комунікації та ввічливість",
         shortDesc: "Вивчення базових привітань, прощань та перших фраз для інтеграції у французьке середовище.",
         img: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a",
-        videoUrl: "https://www.youtube.com/embed/PHeM9vSgZ4o", // Реальне французьке відео про фонетику/привітання
         theory: `
             <h3>🗣 Правила ввічливості у Франції</h3>
             <p>У французькій культурі слово <strong>Bonjour</strong> є фундаментальним. Якщо ви заходите в магазин, кафе чи автобус і не кажете "Bonjour", це сприймається як груба неповага. Французи дуже чітко розмежовують офіційний та дружній регістри спілкування.</p>
@@ -427,7 +409,7 @@ const lessonsData = [
             { q: "Як сказати 'Будь ласка' звертаючись на 'Ви'?", o: ["S'il vous plaît", "Merci", "De rien", "Salut"], c: 0 },
             { q: "Що означає фраза 'Comment ça va?'", o: ["Хто ти?", "Де ти живеш?", "Як справи?", "Котра година?"], c: 2 },
             { q: "Яка відповідь означає 'Все добре'?", o: ["Au revoir", "Ça va bien", "Merci", "Enchanté"], c: 1 },
-            { q: "Що скаже搬 француз під час першого знайомства?", o: ["Enchanté", "Salut", "S'il vous plaît", "De rien"], c: 0 },
+            { q: "Що скаже француз під час першого знайомства?", o: ["Enchanté", "Salut", "S'il vous plaît", "De rien"], c: 0 },
             { q: "Яке з цих слів означає прощання?", o: ["Bonjour", "Au revoir", "Comment ça va", "Merci"], c: 1 }
         ]
     },
@@ -435,7 +417,6 @@ const lessonsData = [
         title: "Урок 2 — Числа, час та вік",
         shortDesc: "Опанування лічби, базових математичних понять, вираження свого віку та розуміння годинника.",
         img: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd",
-        videoUrl: "https://www.youtube.com/embed/HdR7N_vSgB8", // Французькі числа від 1 до 100
         theory: `
             <h3>🔢 Особливості французької системи лічби</h3>
             <p>Французька лічба — одна з найцікавіших у світі. На перших етапах вона стандартна, але починаючи з числа 70, французи використовують математичну логіку. Наприклад, щоб сказати "сімдесят", вони кажуть "шістдесят і десять" (soixante-dix). А "вісімдесят" — це "чотири рази по двадцять" (quatre-vingts).</p>
@@ -473,7 +454,6 @@ const lessonsData = [
         title: "Урок 3 — Сім’я, родичі та зв'язки",
         shortDesc: "Опис своєї родини, сімейного стану та вивчення присвійних займенників (мій, моя).",
         img: "https://images.unsplash.com/photo-1511895426328-dc8714191300",
-        videoUrl: "https://www.youtube.com/embed/jZ_orLpE42M", // Тематичне відео про родину
         theory: `
             <h3>👨‍👩‍👧‍👦 Родина французькою</h3>
             <p>Тема сім'ї (<strong>La famille</strong>) є дуже важливою для повсякденного спілкування. Зверніть увагу на артиклі та займенники перед назвами родичів. Оскільки французька мова має граматичний рід, слова "мій" та "моя" змінюються залежно від роду родича.</p>
@@ -510,7 +490,6 @@ const lessonsData = [
         title: "Урок 4 — Гастрономія, ресторани та їжа",
         shortDesc: "Кулінарні традиції Франції. Як зробити замовлення в ресторані та назви основних продуктів.",
         img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-        videoUrl: "https://www.youtube.com/embed/6i7_3g92YgY", // Французька їжа та замовлення в кафе
         theory: `
             <h3>🍽 Культура харчування</h3>
             <p>Французька гастрономія визнана нематеріальною культурною спадщиною ЮНЕСКО. Обід або вечеря у Франції — це цілий ритуал. Базові продукти, такі як багет (pain) та сир (fromage), є невід'ємною частиною раціону.</p>
@@ -633,13 +612,6 @@ function openLesson(idx, btnElement) {
 
         <div class="content-section text-block">
             ${lesson.theory}
-        </div>
-
-        <div class="content-section">
-            <h3>📺 Французьке відео до теми</h3>
-            <div class="video-wrapper">
-                <iframe src="${lesson.videoUrl}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
         </div>
 
         <div class="content-section">
