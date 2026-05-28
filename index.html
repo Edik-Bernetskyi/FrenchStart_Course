@@ -3,352 +3,776 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FrenchStart — Курс французької</title>
+<title>FrenchStart — Професійна навчальна платформа</title>
 <style>
-body{
-font-family:Arial,sans-serif;
-margin:0;
-background:#0f172a;
-color:white;
+:root {
+    --bg-main: #0b0f19;
+    --bg-card: #151f32;
+    --bg-sidebar: #0f172a;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --accent: #8b5cf6;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --success: #10b981;
+    --error: #ef4444;
 }
-header{
-padding:40px;
-text-align:center;
-background:linear-gradient(90deg,#2563eb,#7c3aed);
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
-header h1{
-font-size:52px;
-margin:0;
+
+/* Sidebar Layout */
+.sidebar {
+    width: 320px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid #1e293b;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
 }
-.container{
-padding:30px;
-max-width:1300px;
-margin:auto;
+
+.sidebar-header {
+    padding: 25px;
+    background: linear-gradient(135deg, #1e40af, #6d28d9);
+    text-align: center;
 }
-.lesson-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
+
+.sidebar-header h1 { font-size: 26px; font-weight: 800; letter-spacing: 0.5px; }
+.sidebar-header p { font-size: 12px; color: #e2e8f0; margin-top: 5px; opacity: 0.9; }
+
+.sidebar-menu {
+    overflow-y: auto;
+    padding: 15px;
+    flex-grow: 1;
 }
-.lesson-card{
-background:#1e293b;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 0 15px rgba(0,0,0,0.4);
-transition:0.3s;
+
+.menu-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin: 15px 0 8px 10px;
+    font-weight: 700;
 }
-.lesson-card:hover{
-transform:translateY(-5px);
+
+.nav-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 12px 15px;
+    text-align: left;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    margin-bottom: 4px;
 }
-.lesson-card img{
-width:100%;
-height:200px;
-object-fit:cover;
+
+.nav-btn:hover {
+    background-color: #1e293b;
+    color: var(--text-main);
 }
-.lesson-content{
-padding:20px;
+
+.nav-btn.active-nav {
+    background-color: var(--primary);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
-button{
-background:#2563eb;
-color:white;
-border:none;
-padding:12px 18px;
-border-radius:12px;
-cursor:pointer;
-font-size:16px;
+
+/* Main Content Area */
+.main-content {
+    margin-left: 320px;
+    flex-grow: 1;
+    padding: 40px;
+    max-width: 1200px;
+    width: calc(100% - 320px);
 }
-button:hover{
-background:#1d4ed8;
+
+/* Screens */
+.screen { display: none; }
+.screen.active-screen { display: block; animation: fadeIn 0.4s ease; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-.lesson-page{
-display:none;
-padding:30px;
+
+/* Dashboard / Home Grid */
+.welcome-banner {
+    background: linear-gradient(90deg, #1e293b, #0f172a);
+    border: 1px solid #1e293b;
+    padding: 35px;
+    border-radius: 20px;
+    margin-bottom: 35px;
 }
-.active{
-display:block;
+.welcome-banner h2 { font-size: 32px; margin-bottom: 10px; }
+.welcome-banner p { color: var(--text-muted); font-size: 16px; line-height: 1.5; }
+
+.lesson-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
 }
-.quiz{
-margin-top:20px;
-background:#111827;
-padding:20px;
-border-radius:15px;
+
+.lesson-card {
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #22314d;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
-.answer{
-display:block;
-margin:10px 0;
-padding:10px;
-background:#334155;
-border-radius:10px;
-cursor:pointer;
+
+.lesson-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
-.answer:hover{
-background:#475569;
+
+.lesson-card img { width: 100%; height: 180px; object-fit: cover; }
+.card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+.card-body h3 { font-size: 20px; margin-bottom: 10px; color: var(--text-main); }
+.card-body p { color: var(--text-muted); font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
+
+.btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background 0.2s, transform 0.1s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
-.result{
-margin-top:10px;
-font-weight:bold;
+.btn:hover { background-color: var(--primary-hover); }
+.btn:active { transform: scale(0.98); }
+.btn-secondary { background-color: #334155; color: var(--text-main); }
+.btn-secondary:hover { background-color: #475569; }
+
+/* Lesson Page Styling */
+.lesson-header { position: relative; margin-bottom: 35px; border-radius: 20px; overflow: hidden; height: 300px; }
+.lesson-header img { width: 100%; height: 100%; object-fit: cover; }
+.lesson-header-overlay { 
+    position: absolute; bottom: 0; left: 0; right: 0; 
+    background: linear-gradient(transparent, rgba(11,15,25,0.95)); 
+    padding: 40px; 
 }
-.back{
-margin-top:20px;
+.lesson-header h2 { font-size: 40px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+
+/* Video Container */
+.video-wrapper {
+    margin: 30px 0;
+    position: relative;
+    padding-bottom: 56.25%; 
+    height: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid #22314d;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
-.text-block{
-line-height:1.8;
-color:#e2e8f0;
+.video-wrapper iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+}
+
+.content-section {
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 30px;
+    border: 1px solid #22314d;
+    line-height: 1.8;
+    font-size: 16px;
+}
+.content-section h3 { font-size: 24px; margin-bottom: 20px; color: var(--primary); border-bottom: 2px solid #22314d; padding-bottom: 8px;}
+.content-section p { margin-bottom: 15px; color: #e2e8f0; }
+
+/* Vocabulary Tables */
+.vocab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 15px;
+}
+.vocab-table th, .vocab-table td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid #22314d;
+}
+.vocab-table th { background-color: #0f172a; color: var(--text-muted); font-weight: 600; }
+.vocab-table tr:hover { background-color: rgba(255,255,255,0.02); }
+.audio-btn {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: var(--text-main);
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.audio-btn:hover { background: var(--primary); border-color: var(--primary); }
+
+/* Interactive Flashcards */
+.flashcards-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.flashcard {
+    width: 220px;
+    height: 140px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+.flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.flashcard-front {
+    background: linear-gradient(135deg, #1e293b, #334155);
+    border: 1px solid #475569;
+    color: white;
+}
+.flashcard-back {
+    background: linear-gradient(135deg, #4c1d95, #6d28d9);
+    color: white;
+    transform: rotateY(180deg);
+}
+.flashcard-front span { font-size: 20px; font-weight: bold; }
+.flashcard-back span { font-size: 18px; }
+
+/* Quiz Block */
+.quiz-box {
+    background: #111827;
+    border: 1px solid #374151;
+    border-radius: 16px;
+    padding: 30px;
+    margin-top: 30px;
+}
+.quiz-question { font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #f3f4f6; }
+.options-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+.option-item {
+    background-color: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 10px;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+}
+.option-item:hover { background-color: #374151; border-color: var(--primary); }
+.option-item.selected { background-color: #2563eb; border-color: #60a5fa; color: white; }
+
+.quiz-progress {
+    font-size: 14px; color: var(--text-muted); margin-bottom: 10px; text-align: right;
+}
+
+.quiz-results-summary {
+    text-align: center; padding: 20px 0;
+}
+.score-badge {
+    font-size: 48px; font-weight: 800; color: var(--success); margin: 15px 0;
+}
+
+/* Responsive Layout */
+@media (max-width: 992px) {
+    body { flex-direction: column; }
+    .sidebar { width: 100%; position: relative; height: auto; border-right: none; border-bottom: 1px solid #1e293b; }
+    .main-content { margin-left: 0; width: 100%; padding: 20px; }
 }
 </style>
 </head>
 <body>
 
-<header>
-<h1>🇫🇷 FrenchStart</h1>
-<p>Великий інтерактивний курс французької мови</p>
-</header>
+<!-- Навігаційне меню (План-зміст) -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h1>🇫🇷 FrenchStart</h1>
+        <p>Навчальна Екосистема v2.0</p>
+    </div>
+    <div class="sidebar-menu" id="sidebarMenu">
+        <div class="menu-title">Головна сторінка</div>
+        <button class="nav-btn active-nav" onclick="switchScreen('home', this)">
+            🏠 Головна панель
+        </button>
+        
+        <div class="menu-title">План курсу та уроки</div>
+        <div id="lessonsNav"></div>
+    </div>
+</div>
 
-<div class="container" id="home">
-<div class="lesson-grid">
+<!-- Основний контент -->
+<div class="main-content">
+
+    <!-- Екран: Головна панель -->
+    <div id="screen-home" class="screen active-screen">
+        <div class="welcome-banner">
+            <h2>Bonjour, mon ami! 👋</h2>
+            <p>Ласкаво просимо на інтерактивну платформу FrenchStart. Курс розбитий на великі, структуровані блоки. Кожен урок містить розгорнуту теоретичну базу, аудіо-вимову слів, відеоурок, інтерактивні картки для заучування та великий розумний тест на 8 запитань.</p>
+        </div>
+        
+        <h2 style="margin-bottom: 20px; font-size: 24px;">🗂 Доступні навчальні модулі</h2>
+        <div class="lesson-grid" id="lessonGrid"></div>
+    </div>
+
+    <!-- Контейнер для динамічного завантаження великих уроків -->
+    <div id="lessonView" class="screen"></div>
+
+</div>
 
 <script>
-const lessons = [
-{
-title:"Урок 1 — Привітання",
-img:"https://images.unsplash.com/photo-1499856871958-5b9627545d1a",
-text:`Французька мова починається з базових привітань. 
-Bonjour означає «Добрий день», а Salut — «Привіт». 
-У Франції дуже важливо вітатися ввічливо. 
-Також потрібно знати фрази Merci — дякую та Au revoir — до побачення.
-
-Французька вимова відрізняється від української. 
-Букви часто читаються не так, як пишуться. 
-Тому важливо слухати вимову та повторювати слова вголос.
-
-Приклади:
-Bonjour, je m'appelle Marie.
-Salut! Comment ça va?
-Merci beaucoup!`,
-question:"Що означає Bonjour?",
-answers:["Привіт","Добрий день","Дякую"],
-correct:1
-},
-{
-title:"Урок 2 — Числа",
-img:"https://images.unsplash.com/photo-1502920917128-1aa500764cbd",
-text:`У французькій мові числа дуже важливі для покупок, віку та часу.
-
-1 — un
-2 — deux
-3 — trois
-10 — dix
-20 — vingt
-
-Французи часто використовують числа у повсякденному житті:
-J’ai quinze ans — Мені 15 років.
-
-Потрібно тренуватись вимовляти числа швидко.`,
-question:"Як французькою буде число 2?",
-answers:["Deux","Trois","Cinq"],
-correct:0
-},
-{
-title:"Урок 3 — Сім’я",
-img:"https://images.unsplash.com/photo-1511895426328-dc8714191300",
-text:`Сім’я французькою — famille.
-
-Mère — мама
-Père — тато
-Frère — брат
-Sœur — сестра
-
-Приклад:
-Ma famille est grande.
-J’aime ma mère.
-
-У французькій мові важливі артиклі та правильна вимова.`,
-question:"Як французькою сказати «брат»?",
-answers:["Père","Frère","Sœur"],
-correct:1
-},
-{
-title:"Урок 4 — Їжа",
-img:"https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-text:`Французька кухня відома у всьому світі.
-
-Pain — хліб
-Fromage — сир
-Eau — вода
-Café — кава
-
-У кафе часто використовують фразу:
-Je voudrais un café.
-
-Це означає «Я хотів би каву».`,
-question:"Що означає Fromage?",
-answers:["Вода","Сир","Кава"],
-correct:1
-},
-{
-title:"Урок 5 — Подорожі",
-img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-text:`Подорожі допомагають практикувати мову.
-
-Train — потяг
-Bus — автобус
-Rue — вулиця
-
-Питання:
-Où est la gare?
-Де вокзал?
-
-Потрібно знати назви транспорту та місць.`,
-question:"Що означає Train?",
-answers:["Потяг","Автобус","Машина"],
-correct:0
-},
-{
-title:"Урок 6 — Щоденні дії",
-img:"https://images.unsplash.com/photo-1494526585095-c41746248156",
-text:`Щоденні дії описують наше життя.
-
-Dormir — спати
-Étudier — вчитись
-Manger — їсти
-
-Приклад:
-Je vais à l’école.
-Je mange à midi.
-
-Французькі дієслова потрібно вивчати регулярно.`,
-question:"Що означає Dormir?",
-answers:["Спати","Їсти","Бігти"],
-correct:0
-},
-{
-title:"Урок 7 — Магазин",
-img:"https://images.unsplash.com/photo-1521334884684-d80222895322",
-text:`У магазині важливо знати ціни та одяг.
-
-Chemise — сорочка
-Chaussures — взуття
-Prix — ціна
-
-Combien ça coûte?
-Скільки це коштує?`,
-question:"Що означає Prix?",
-answers:["Одяг","Ціна","Сумка"],
-correct:1
-},
-{
-title:"Урок 8 — Хобі",
-img:"https://images.unsplash.com/photo-1516280440614-37939bbacd81",
-text:`Французи люблять говорити про хобі.
-
-Musique — музика
-Sport — спорт
-Film — фільм
-
-J’aime la musique française.
-Я люблю французьку музику.`,
-question:"Що означає Musique?",
-answers:["Музика","Фільм","Гра"],
-correct:0
-},
-{
-title:"Урок 9 — Майбутнє",
-img:"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
-text:`Майбутній час у французькій допомагає говорити про плани.
-
-Demain — завтра
-Voyager — подорожувати
-
-Je vais voyager à Paris.
-Я збираюсь подорожувати до Парижа.`,
-question:"Що означає Demain?",
-answers:["Вчора","Завтра","Сьогодні"],
-correct:1
-},
-{
-title:"Урок 10 — Повторення",
-img:"https://images.unsplash.com/photo-1513258496099-48168024aec0",
-text:`Останній урок повторює всі теми курсу.
-
-Тепер ти знаєш:
-- привітання
-- числа
-- їжу
-- сім’ю
-- подорожі
-
-Bravo! Tu as terminé le cours!`,
-question:"Що означає Bravo?",
-answers:["Молодець","Помилка","Привіт"],
-correct:0
-}
+// ВЕЛИКА НАПОВНЕНА БАЗА ДАНИХ КУРСУ[cite: 1]
+const lessonsData = [
+    {
+        title: "Урок 1 — Основи комунікації та ввічливість",
+        shortDesc: "Вивчення базових привітань, прощань та перших фраз для інтеграції у французьке середовище.",
+        img: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a",
+        videoUrl: "https://www.youtube.com/embed/HdR7N_vSgB8", 
+        theory: `
+            <h3>🗣 Правила ввічливості у Франції</h3>
+            <p>У французькій культурі слово <strong>Bonjour</strong> є фундаментальним. Якщо ви заходите в магазин, кафе чи автобус і не кажете "Bonjour", це сприймається як груба неповага. Французи дуже чітко розмежовують офіційний та дружній регістри спілкування.</p>
+            <p>Слово <strong>Salut</strong> є розмовним, аналогом нашого "Привіт", і використовується тільки з друзями, близькими або дітьми. Використовувати його з незнайомими людьми або старшими за віком не варто.</p>
+            <h3>🥖 Особливості вимови</h3>
+            <p>У французькій мові наголос майже завжди падає на <strong>останній склад</strong>. Крім того, багато кінцевих літер (таких як -s, -t, -d, -e) є "німими", тобто взагалі не вимовляються. Наприклад, у слові <em>Salut</em> літера 't' наприкінці не читається.</p>
+        `,
+        vocabulary: [
+            { fr: "Bonjour", ukr: "Добрий день / Привіт (офіц.)" },
+            { fr: "Salut", ukr: "Привіт / Бувай (неофіц.)" },
+            { fr: "Merci beaucoup", ukr: "Дуже дякую" },
+            { fr: "Au revoir", ukr: "До побачення" },
+            { fr: "S'il vous plaît", ukr: "Будь ласка (ввічливо)" },
+            { fr: "Comment ça va?", ukr: "Як справи?" },
+            { fr: "Ça va bien", ukr: "Все добре" },
+            { fr: "Enchanté", ukr: "Приємно познайомитись" }
+        ],
+        flashcards: [
+            { f: "Bonjour", b: "Добрий день" },
+            { f: "Merci beaucoup", b: "Дуже дякую" },
+            { f: "Au revoir", b: "До побачення" },
+            { f: "S'il vous plaît", b: "Будь ласка" }
+        ],
+        quiz: [
+            { q: "Яке слово використовується для офіційного привітання вдень?", o: ["Salut", "Bonjour", "Au revoir", "Merci"], c: 1 },
+            { q: "Яка літера не вимовляється в слові 'Salut'?", o: ["S", "a", "l", "t"], c: 3 },
+            { q: "Як перекладається 'Merci beaucoup'?", o: ["Будь ласка", "До побачення", "Дуже дякую", "Приємно познайомитись"], c: 2 },
+            { q: "Як сказати 'Будь ласка' звертаючись на 'Ви'?", o: ["S'il vous plaît", "Merci", "De rien", "Salut"], c: 0 },
+            { q: "Що означає фраза 'Comment ça va?'", o: ["Хто ти?", "Де ти живеш?", "Як справи?", "Котра година?"], c: 2 },
+            { q: "Яка відповідь означає 'Все добре'?", o: ["Au revoir", "Ça va bien", "Merci", "Enchanté"], c: 1 },
+            { q: "Що скаже француз під час першого знайомства?", o: ["Enchanté", "Salut", "S'il vous plaît", "De rien"], c: 0 },
+            { q: "Яке з цих слів означає прощання?", o: ["Bonjour", "Au revoir", "Comment ça va", "Merci"], c: 1 }
+        ]
+    },
+    {
+        title: "Урок 2 — Числа, час та вік",
+        shortDesc: "Опанування лічби, базових математичних понять, вираження свого віку та розуміння годинника.",
+        img: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd",
+        videoUrl: "https://www.youtube.com/embed/PHeM9vSgZ4o",
+        theory: `
+            <h3>🔢 Особливості французької системи лічби</h3>
+            <p>Французька лічба — одна з найцікавіших у світі. На перших етапах вона стандартна, але починаючи з числа 70, французи використовують математичну логіку. Наприклад, щоб сказати "сімдесят", вони кажуть "шістдесят і ось десять" (soixante-dix). А "вісімдесят" — це "чотири рази по двадцять" (quatre-vingts).</p>
+            <h3>⏳ Вік та години</h3>
+            <p>На відміну від української мови, де ми кажемо "Мені є 20 років", французи використовують дієслово <strong>avoir</strong> (мати). Дослівно вони кажуть: "Я маю 20 років" -> <em>J'ai vingt ans</em>.</p>
+        `,
+        vocabulary: [
+            { fr: "Un", ukr: "Один" },
+            { fr: "Deux", ukr: "Два" },
+            { fr: "Trois", ukr: "Три" },
+            { fr: "Dix", ukr: "Десять" },
+            { fr: "Vingt", ukr: "Двадцять" },
+            { fr: "Trente", ukr: "Тридцять" },
+            { fr: "Cent", ukr: "Сто" },
+            { fr: "J'ai vingt ans", ukr: "Ment 20 років" }
+        ],
+        flashcards: [
+            { f: "Deux", b: "Два" },
+            { f: "Dix", b: "Десять" },
+            { f: "Vingt", b: "Двадцять" },
+            { f: "Cent", b: "Сто" }
+        ],
+        quiz: [
+            { q: "Як французькою мовою звучить число 2?", o: ["Un", "Deux", "Trois", "Dix"], c: 1 },
+            { q: "Яке число означає 'Vingt'?", o: ["10", "20", "30", "100"], c: 1 },
+            { q: "Яке дієслово використовують французи для вираження віку?", o: ["Être", "Avoir", "Faire", "Aller"], c: 1 },
+            { q: "Як перекладається число 'Cent'?", o: ["10", "50", "100", "1000"], c: 2 },
+            { q: "Що означає фраза 'J'ai dix ans'?", o: ["Мені 10 років", "Мені 20 років", "У мене 10 друзів", "Я бачу десятку"], c: 0 },
+            { q: "Як сказати 'Три'?", o: ["Un", "Deux", "Trois", "Quatre"], c: 2 },
+            { q: "Яке число означає 'Trente'?", o: ["20", "30", "40", "50"], c: 1 },
+            { q: "Як перекласти словосполучення 'deux ans'?", o: ["Два дні", "Два роки", "Два місяці", "Дві години"], c: 1 }
+        ]
+    },
+    {
+        title: "Урок 3 — Сім’я, родичі та зв'язки",
+        shortDesc: "Опис своєї родини, сімейного стану та вивчення присвійних займенників (мій, моя).",
+        img: "https://images.unsplash.com/photo-1511895426328-dc8714191300",
+        videoUrl: "https://www.youtube.com/embed/jZ_orLpE42M",
+        theory: `
+            <h3>👨‍👩‍👧‍👦 Родина французькою</h3>
+            <p>Тема сім'ї (<strong>La famille</strong>) є дуже важливою для повсякденного спілкування. Зверніть увагу на артиклі та займенники перед назвами родичів. Оскільки французька мова має граматичний рід, слова "мій" та "моя" змінюються залежно від роду родича.</p>
+            <p>Для чоловічого роду використовується <strong>mon</strong> (mon père - мій тато), для жіночого — <strong>ma</strong> (ma mère - моя мама), а для множини — <strong>mes</strong> (mes parents - мої батьки).</p>
+        `,
+        vocabulary: [
+            { fr: "La famille", ukr: "Сім'я" },
+            { fr: "La mère", ukr: "Мати" },
+            { fr: "Le père", ukr: "Батько" },
+            { fr: "Le frère", ukr: "Брат" },
+            { fr: "La sœur", ukr: "Сестра" },
+            { fr: "Le fils", ukr: "Син" },
+            { fr: "La fille", ukr: "Донька" },
+            { fr: "Les parents", ukr: "Батьки" }
+        ],
+        flashcards: [
+            { f: "Le père", b: "Батько" },
+            { f: "La mère", b: "Мати" },
+            { f: "Le frère", b: "Брат" },
+            { f: "La sœur", b: "Сестра" }
+        ],
+        quiz: [
+            { q: "Як французькою буде слово 'брат'?", o: ["Père", "Mère", "Frère", "Sœur"], c: 2 },
+            { q: "Який займенник використовується для 'моя мама'?", o: ["Mon", "Ma", "Mes", "Ton"], c: 1 },
+            { q: "Що означає слово 'Fils'?", o: ["Донька", "Брат", "Батько", "Син"], c: 3 },
+            { q: "Як перекладається 'Les parents'?", o: ["Родичі", "Батьки", "Друзі", "Сусіди"], c: 1 },
+            { q: "Як сказати 'сестра'?", o: ["Mère", "Fille", "Sœur", "Famille"], c: 2 },
+            { q: "Який займенник підійде до слова 'père'?", o: ["Ma", "Mon", "Mes", "Sa"], c: 1 },
+            { q: "Що означає 'La famille est grande'?", o: ["Сім'я маленька", "Сім'я велика", "Я люблю сім'ю", "Це моя родина"], c: 1 },
+            { q: "Як перекладається 'La fille'?", o: ["Донька", "Син", "Тітка", "Бабуся"], c: 0 }
+        ]
+    },
+    {
+        title: "Урок 4 — Гастрономія, ресторани та їжа",
+        shortDesc: "Кулінарні традиції Франції. Як зробити замовлення в ресторані та назви основних продуктів.",
+        img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+        videoUrl: "https://www.youtube.com/embed/6i7_3g92YgY",
+        theory: `
+            <h3>🍽 Культура харчування</h3>
+            <p>Французька гастрономія визнана нематеріальною культурною спадщиною ЮНЕСКО. Обід або вечеря у Франції — це цілий ритуал. Базові продукти, такі як багет (pain) та сир (fromage), є невід'ємною частиною раціону.</p>
+            <h3>☕ Як замовити в кафе</h3>
+            <p>Щоб замовити щось ввічливо, використовуйте конструкцію умовно способу дієслова <em>vouloir</em>: <strong>Je voudrais...</strong> (Я хотів би...). Ніколи не кажіть просто назву продукту, додавайте наприкінці <em>s'il vous plaît</em>.</p>
+        `,
+        vocabulary: [
+            { fr: "Le pain", ukr: "Хліб" },
+            { fr: "Le fromage", ukr: "Сир" },
+            { fr: "L'eau", ukr: "Вода" },
+            { fr: "Le café", ukr: "Кава" },
+            { fr: "Le croissant", ukr: "Круасан" },
+            { fr: "Le petit-déjeuner", ukr: "Сніданок" },
+            { fr: "Je voudrais", ukr: "Я хотів би" },
+            { fr: "L'addition", ukr: "Рахунок (в кафе)" }
+        ],
+        flashcards: [
+            { f: "Le fromage", b: "Сир" },
+            { f: "Le pain", b: "Хліб" },
+            { f: "Je voudrais", b: "Я хотів би" },
+            { f: "L'addition", b: "Рахунок" }
+        ],
+        quiz: [
+            { q: "Що означає слово 'Fromage'?", o: ["Хліб", "М'ясо", "Сир", "Вода"], c: 2 },
+            { q: "Яку фразу слід вжити для ввічливого замовлення?", o: ["Je veux", "Je voudrais", "Donne-moi", "J'ai"], c: 1 },
+            { q: "Що таке 'L'eau'?", o: ["Сік", "Вино", "Кава", "Вода"], c: 3 },
+            { q: "Як попросити рахунок у офіціанта?", o: ["Bonjour", "Merci", "L'addition, s'il vous plaît", "Au revoir"], c: 2 },
+            { q: "Яке слово перекладається як 'Хліб'?", o: ["Pain", "Café", "Croissant", "Eau"], c: 0 },
+            { q: "Що таке 'Le petit-déjeuner'?", o: ["Обід", "Вечеря", "Сніданок", "Полуденок"], c: 2 },
+            { q: "Перекладіть 'Un café, s'il vous plaît':", o: ["Будь ласка, воду", "Каву, будь ласка", "Дайте сиру", "Дякую за каву"], c: 1 },
+            { q: "Яка випічка є символом французького сніданку?", o: ["Пиріг", "Круасан", "Торт", "Печиво"], c: 1 }
+        ]
+    }
 ];
 
-document.write(lessons.map((lesson,index)=>`
-<div class="lesson-card">
-<img src="${lesson.img}">
-<div class="lesson-content">
-<h2>${lesson.title}</h2>
-<p>Інтерактивний урок з тестом та практикою.</p>
-<button onclick="openLesson(${index})">Відкрити урок</button>
-</div>
-</div>
-`).join(''));
-</script>
+// Ініціалізація платформи
+document.addEventListener("DOMContentLoaded", () => {
+    renderNavigation();
+    renderGrid();
+    
+    window.currentQuizState = {
+        lessonIndex: null,
+        currentQuestionIndex: 0,
+        userAnswers: []
+    };
+});
 
-</div>
-</div>
-
-<div id="lessonPages"></div>
-
-<script>
-const pages = document.getElementById('lessonPages');
-
-pages.innerHTML = lessons.map((lesson,index)=>`
-<div class="lesson-page" id="lesson${index}">
-<h1>${lesson.title}</h1>
-<img src="${lesson.img}" style="width:100%;max-height:400px;object-fit:cover;border-radius:20px;">
-<div class="text-block">
-<p>${lesson.text.replaceAll('\n','</p><p>')}</p>
-</div>
-
-<div class="quiz">
-<h2>🧠 Тест</h2>
-<p>${lesson.question}</p>
-
-${lesson.answers.map((ans,i)=>`
-<div class="answer" onclick="checkAnswer(${index},${i})">${ans}</div>
-`).join('')}
-
-<div class="result" id="result${index}"></div>
-</div>
-
-<button class="back" onclick="goHome()">⬅ Назад</button>
-</div>
-`).join('');
-
-function openLesson(index){
-document.getElementById('home').style.display='none';
-document.querySelectorAll('.lesson-page').forEach(p=>p.style.display='none');
-document.getElementById('lesson'+index).style.display='block';
-window.scrollTo(0,0);
+// Генерація змісту в сайдбарі
+function renderNavigation() {
+    const navContainer = document.getElementById("lessonsNav");
+    navContainer.innerHTML = lessonsData.map((lesson, idx) => `
+        <button class="nav-btn" id="nav-btn-${idx}" onclick="openLesson(${idx}, this)">
+            📖 Урок ${idx + 1}
+        </button>
+    `).join('');
 }
 
-function goHome(){
-document.getElementById('home').style.display='block';
-document.querySelectorAll('.lesson-page').forEach(p=>p.style.display='none');
-window.scrollTo(0,0);
+// Генерація карток на головній сторінці
+function renderGrid() {
+    const grid = document.getElementById("lessonGrid");
+    grid.innerHTML = lessonsData.map((lesson, idx) => `
+        <div class="lesson-card">
+            <img src="${lesson.img}" alt="${lesson.title}">
+            <div class="card-body">
+                <div>
+                    <h3>${lesson.title}</h3>
+                    <p>${lesson.shortDesc}</p>
+                </div>
+                <button class="btn" onclick="triggerLessonSelect(${idx})">
+                    Розпочати навчання ➔
+                </button>
+            </div>
+        </div>
+    `).join('');
 }
 
-function checkAnswer(lesson,answer){
-const result=document.getElementById('result'+lesson);
-if(answer===lessons[lesson].correct){
-result.innerHTML='✅ Правильна відповідь!';
-result.style.color='#22c55e';
-}else{
-result.innerHTML='❌ Неправильно. Спробуй ще.';
-result.style.color='#ef4444';
+// Перемикання головних екранів
+function switchScreen(screenId, btnElement) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
+    
+    document.getElementById(`screen-${screenId}`).classList.add('active-screen');
+    if (btnElement) btnElement.classList.add('active-nav');
+    window.scrollTo(0, 0);
 }
+
+function triggerLessonSelect(idx) {
+    const targetNavBtn = document.getElementById(`nav-btn-${idx}`);
+    openLesson(idx, targetNavBtn);
+}
+
+// Функція відкриття сторінки уроку
+function openLesson(idx, btnElement) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
+    
+    if (btnElement) btnElement.classList.add('active-nav');
+    
+    const lesson = lessonsData[idx];
+    const view = document.getElementById("lessonView");
+    view.classList.add('active-screen');
+    
+    window.currentQuizState = {
+        lessonIndex: idx,
+        currentQuestionIndex: 0,
+        userAnswers: []
+    };
+
+    let html = `
+        <div class="lesson-header">
+            <img src="${lesson.img}" alt="${lesson.title}">
+            <div class="lesson-header-overlay">
+                <h2>${lesson.title}</h2>
+            </div>
+        </div>
+
+        <button class="btn btn-secondary" onclick="switchScreen('home', document.querySelector('.sidebar-menu .nav-btn'))" style="margin-bottom: 25px;">
+            ⬅ Назад до плану курсу
+        </button>
+
+        <div class="content-section text-block">
+            ${lesson.theory}
+        </div>
+
+        <div class="content-section">
+            <h3>📺 Відеоурок до теми</h3>
+            <div class="video-wrapper">
+                <iframe src="${lesson.videoUrl}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3>📘 Словник уроку (З вимовою)</h3>
+            <p style="color: var(--text-muted); margin-bottom: 15px;">Натисніть кнопку вимови, щоб почути правильне звучання слова.</p>
+            <table class="vocab-table">
+                <thead>
+                    <tr>
+                        <th>Французька</th>
+                        <th>Вимова</th>
+                        <th>Переклад (Українська)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${lesson.vocabulary.map(v => `
+                        <tr>
+                            <td style="font-weight: bold; color: var(--primary); font-size: 17px;">${v.fr}</td>
+                            <td>
+                                <button class="audio-btn" onclick="speakFrench('${v.fr.replace(/'/g, "\\'")}')">
+                                    🔊 Слухати
+                                </button>
+                            </td>
+                            <td>${v.ukr}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-section">
+            <h3>🧠 Інтерактивні картки (Flashcards)</h3>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Натисніть на картку, щоб перевернути її та побачити переклад.</p>
+            <div class="flashcards-container">
+                ${lesson.flashcards.map(fc => `
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span>${fc.f}</span>
+                                <small style="display:block; margin-top:10px; opacity:0.6; font-size:11px;">Клік для перекладу</small>
+                            </div>
+                            <div class="flashcard-back">
+                                <span>${fc.b}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+
+        <div class="content-section" id="quizBlock">
+            <h3>📝 Комплексний тест знань</h3>
+            <div class="quiz-box" id="quizBoxInner"></div>
+        </div>
+    `;
+    
+    view.innerHTML = html;
+    renderQuizQuestion();
+    window.scrollTo(0, 0);
+}
+
+// Браузерна вимова слів за допомогою Web Speech API
+function speakFrench(text) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'fr-FR';
+        utterance.rate = 0.85; 
+        window.speechSynthesis.speak(utterance);
+    } else {
+        alert("На жаль, ваш браузер не підтримує аудіо-вимову.");
+    }
+}
+
+// Логіка інтерактивного тесту
+function renderQuizQuestion() {
+    const state = window.currentQuizState;
+    const lesson = lessonsData[state.lessonIndex];
+    const container = document.getElementById("quizBoxInner");
+    
+    if (state.currentQuestionIndex < lesson.quiz.length) {
+        const qData = lesson.quiz[state.currentQuestionIndex];
+        
+        container.innerHTML = `
+            <div class="quiz-progress">Питання ${state.currentQuestionIndex + 1} з ${lesson.quiz.length}</div>
+            <div class="quiz-question">${qData.q}</div>
+            <div class="options-list">
+                ${qData.o.map((opt, oIdx) => `
+                    <div class="option-item" onclick="selectQuizOption(${oIdx})">
+                        ${opt}
+                    </div>
+                `).join('')}
+            </div>
+            <button class="btn" id="nextQuestionBtn" disabled onclick="submitQuizAnswer()">Підтвердити відповідь</button>
+        `;
+    } else {
+        renderQuizResults();
+    }
+}
+
+function selectQuizOption(optionIdx) {
+    window.currentQuizState.selectedOption = optionIdx;
+    document.querySelectorAll('.option-item').forEach((item, idx) => {
+        if(idx === optionIdx) {
+            item.classList.add('selected');
+        } else {
+            item.classList.remove('selected');
+        }
+    });
+    document.getElementById("nextQuestionBtn").removeAttribute('disabled');
+}
+
+function submitQuizAnswer() {
+    const state = window.currentQuizState;
+    state.userAnswers.push(state.selectedOption);
+    state.currentQuestionIndex++;
+    state.selectedOption = null;
+    renderQuizQuestion();
+}
+
+function renderQuizResults() {
+    const state = window.currentQuizState;
+    const lesson = lessonsData[state.lessonIndex];
+    const container = document.getElementById("quizBoxInner");
+    
+    let correctCount = 0;
+    lesson.quiz.forEach((q, idx) => {
+        if (q.c === state.userAnswers[idx]) {
+            correctCount++;
+        }
+    });
+    
+    const percentage = Math.round((correctCount / lesson.quiz.length) * 100);
+    let feedback = "";
+    
+    if (percentage === 100) feedback = "🏆 Чудово! Ідеальний результат!";
+    else if (percentage >= 75) feedback = "✨ Дуже добре! Ви маєте глибокі знання.";
+    else if (percentage >= 50) feedback = "👍 Задовільно. Рекомендуємо повторити матеріал.";
+    else feedback = "📚 Спробуйте пройти цей урок заново.";
+
+    container.innerHTML = `
+        <div class="quiz-results-summary">
+            <h3>Тестування завершено!</h3>
+            <div class="score-badge">${correctCount} / ${lesson.quiz.length}</div>
+            <p style="font-size: 18px; margin-bottom: 15px;">Правильних відповідей: <strong>${percentage}%</strong></p>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">${feedback}</p>
+            <button class="btn" onclick="restartQuiz()">🔄 Спробувати знову</button>
+        </div>
+    `;
+}
+
+function restartQuiz() {
+    window.currentQuizState.currentQuestionIndex = 0;
+    window.currentQuizState.userAnswers = [];
+    window.currentQuizState.selectedOption = null;
+    renderQuizQuestion();
 }
 </script>
 
