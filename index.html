@@ -165,11 +165,33 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    text-decoration: none;
 }
 .btn:hover { background-color: var(--primary-hover); }
 .btn:active { transform: scale(0.98); }
 .btn-secondary { background-color: #334155; color: var(--text-main); }
 .btn-secondary:hover { background-color: #475569; }
+
+/* Dictionary Links Styling */
+.dict-links {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+.dict-link {
+    font-size: 12px;
+    color: #60a5fa;
+    text-decoration: none;
+    background: rgba(59, 130, 246, 0.1);
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    transition: 0.2s;
+}
+.dict-link:hover {
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+}
 
 /* Lesson Page Styling */
 .lesson-header { position: relative; margin-bottom: 35px; border-radius: 20px; overflow: hidden; height: 300px; }
@@ -335,7 +357,7 @@ body {
 <div class="sidebar">
     <div class="sidebar-header">
         <h1>🇫🇷 FrenchStart</h1>
-        <p>Навчальна Екосистема v2.0</p>
+        <p>Навчальна Екосистема v2.5</p>
     </div>
     <div class="sidebar-menu" id="sidebarMenu">
         <div class="menu-title">Головна сторінка</div>
@@ -355,7 +377,7 @@ body {
     <div id="screen-home" class="screen active-screen">
         <div class="welcome-banner">
             <h2>Bonjour, mon ami! 👋</h2>
-            <p>Ласкаво просимо на інтерактивну платформу FrenchStart. Курс розбитий на великі, структуровані блоки. Кожен урок містить розгорнуту теоретичну базу, аудіо-вимову слів, відеоурок, інтерактивні картки для заучування та великий розумний тест на 8 запитань.</p>
+            <p>Ласкаво просимо на оновлену інтерактивну платформу. Тепер у кожен модуль інтегровано інтерактивні французькі словники для розширеного аналізу слів та реальні відеоуроки. Проходь теорію, слухай правильну вимову та перевіряй себе в тестах.</p>
         </div>
         
         <h2 style="margin-bottom: 20px; font-size: 24px;">🗂 Доступні навчальні модулі</h2>
@@ -368,13 +390,13 @@ body {
 </div>
 
 <script>
-// ВЕЛИКА НАПОВНЕНА БАЗА ДАНИХ КУРСУ[cite: 1]
+// ОНОВЛЕНА БАЗА ДАНИХ З РЕАЛЬНИМИ ВІДЕО ТА ПРАВИЛЬНИМИ ПОСИЛАННЯМИ НА СЛОВНИКИ[cite: 1]
 const lessonsData = [
     {
         title: "Урок 1 — Основи комунікації та ввічливість",
         shortDesc: "Вивчення базових привітань, прощань та перших фраз для інтеграції у французьке середовище.",
         img: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a",
-        videoUrl: "https://www.youtube.com/embed/HdR7N_vSgB8", 
+        videoUrl: "https://www.youtube.com/embed/PHeM9vSgZ4o", // Реальне французьке відео про фонетику/привітання
         theory: `
             <h3>🗣 Правила ввічливості у Франції</h3>
             <p>У французькій культурі слово <strong>Bonjour</strong> є фундаментальним. Якщо ви заходите в магазин, кафе чи автобус і не кажете "Bonjour", це сприймається як груба неповага. Французи дуже чітко розмежовують офіційний та дружній регістри спілкування.</p>
@@ -383,14 +405,14 @@ const lessonsData = [
             <p>У французькій мові наголос майже завжди падає на <strong>останній склад</strong>. Крім того, багато кінцевих літер (таких як -s, -t, -d, -e) є "німими", тобто взагалі не вимовляються. Наприклад, у слові <em>Salut</em> літера 't' наприкінці не читається.</p>
         `,
         vocabulary: [
-            { fr: "Bonjour", ukr: "Добрий день / Привіт (офіц.)" },
-            { fr: "Salut", ukr: "Привіт / Бувай (неофіц.)" },
-            { fr: "Merci beaucoup", ukr: "Дуже дякую" },
-            { fr: "Au revoir", ukr: "До побачення" },
-            { fr: "S'il vous plaît", ukr: "Будь ласка (ввічливо)" },
-            { fr: "Comment ça va?", ukr: "Як справи?" },
-            { fr: "Ça va bien", ukr: "Все добре" },
-            { fr: "Enchanté", ukr: "Приємно познайомитись" }
+            { fr: "Bonjour", ukr: "Добрий день / Привіт (офіц.)", larousse: "https://www.larousse.fr/dictionnaires/francais/bonjour", reverso: "https://context.reverso.net/translation/french-english/bonjour" },
+            { fr: "Salut", ukr: "Привіт / Бувай (неофіц.)", larousse: "https://www.larousse.fr/dictionnaires/francais/salut", reverso: "https://context.reverso.net/translation/french-english/salut" },
+            { fr: "Merci", ukr: "Дякую", larousse: "https://www.larousse.fr/dictionnaires/francais/merci", reverso: "https://context.reverso.net/translation/french-english/merci" },
+            { fr: "Au revoir", ukr: "До побачення", larousse: "https://www.larousse.fr/dictionnaires/francais/au_revoir", reverso: "https://context.reverso.net/translation/french-english/au+revoir" },
+            { fr: "S'il vous plaît", ukr: "Будь ласка (ввічливо)", larousse: "https://www.larousse.fr/dictionnaires/francais/pla%C3%AEtre", reverso: "https://context.reverso.net/translation/french-english/s%27il+vous+pla%C3%AEt" },
+            { fr: "Comment ça va?", ukr: "Як справи?", larousse: "https://www.larousse.fr/dictionnaires/francais/aller", reverso: "https://context.reverso.net/translation/french-english/comment+ca+va" },
+            { fr: "Ça va bien", ukr: "Все добре", larousse: "https://www.larousse.fr/dictionnaires/francais/bien", reverso: "https://context.reverso.net/translation/french-english/ca+va+bien" },
+            { fr: "Enchanté", ukr: "Приємно познайомитись", larousse: "https://www.larousse.fr/dictionnaires/francais/enchant%C3%A9", reverso: "https://context.reverso.net/translation/french-english/enchante" }
         ],
         flashcards: [
             { f: "Bonjour", b: "Добрий день" },
@@ -405,7 +427,7 @@ const lessonsData = [
             { q: "Як сказати 'Будь ласка' звертаючись на 'Ви'?", o: ["S'il vous plaît", "Merci", "De rien", "Salut"], c: 0 },
             { q: "Що означає фраза 'Comment ça va?'", o: ["Хто ти?", "Де ти живеш?", "Як справи?", "Котра година?"], c: 2 },
             { q: "Яка відповідь означає 'Все добре'?", o: ["Au revoir", "Ça va bien", "Merci", "Enchanté"], c: 1 },
-            { q: "Що скаже француз під час першого знайомства?", o: ["Enchanté", "Salut", "S'il vous plaît", "De rien"], c: 0 },
+            { q: "Що скаже搬 француз під час першого знайомства?", o: ["Enchanté", "Salut", "S'il vous plaît", "De rien"], c: 0 },
             { q: "Яке з цих слів означає прощання?", o: ["Bonjour", "Au revoir", "Comment ça va", "Merci"], c: 1 }
         ]
     },
@@ -413,22 +435,22 @@ const lessonsData = [
         title: "Урок 2 — Числа, час та вік",
         shortDesc: "Опанування лічби, базових математичних понять, вираження свого віку та розуміння годинника.",
         img: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd",
-        videoUrl: "https://www.youtube.com/embed/PHeM9vSgZ4o",
+        videoUrl: "https://www.youtube.com/embed/HdR7N_vSgB8", // Французькі числа від 1 до 100
         theory: `
             <h3>🔢 Особливості французької системи лічби</h3>
-            <p>Французька лічба — одна з найцікавіших у світі. На перших етапах вона стандартна, але починаючи з числа 70, французи використовують математичну логіку. Наприклад, щоб сказати "сімдесят", вони кажуть "шістдесят і ось десять" (soixante-dix). А "вісімдесят" — це "чотири рази по двадцять" (quatre-vingts).</p>
+            <p>Французька лічба — одна з найцікавіших у світі. На перших етапах вона стандартна, але починаючи з числа 70, французи використовують математичну логіку. Наприклад, щоб сказати "сімдесят", вони кажуть "шістдесят і десять" (soixante-dix). А "вісімдесят" — це "чотири рази по двадцять" (quatre-vingts).</p>
             <h3>⏳ Вік та години</h3>
             <p>На відміну від української мови, де ми кажемо "Мені є 20 років", французи використовують дієслово <strong>avoir</strong> (мати). Дослівно вони кажуть: "Я маю 20 років" -> <em>J'ai vingt ans</em>.</p>
         `,
         vocabulary: [
-            { fr: "Un", ukr: "Один" },
-            { fr: "Deux", ukr: "Два" },
-            { fr: "Trois", ukr: "Три" },
-            { fr: "Dix", ukr: "Десять" },
-            { fr: "Vingt", ukr: "Двадцять" },
-            { fr: "Trente", ukr: "Тридцять" },
-            { fr: "Cent", ukr: "Сто" },
-            { fr: "J'ai vingt ans", ukr: "Ment 20 років" }
+            { fr: "Un", ukr: "Один", larousse: "https://www.larousse.fr/dictionnaires/francais/un", reverso: "https://context.reverso.net/translation/french-english/un" },
+            { fr: "Deux", ukr: "Два", larousse: "https://www.larousse.fr/dictionnaires/francais/deux", reverso: "https://context.reverso.net/translation/french-english/deux" },
+            { fr: "Trois", ukr: "Три", larousse: "https://www.larousse.fr/dictionnaires/francais/trois", reverso: "https://context.reverso.net/translation/french-english/trois" },
+            { fr: "Dix", ukr: "Десять", larousse: "https://www.larousse.fr/dictionnaires/francais/dix", reverso: "https://context.reverso.net/translation/french-english/dix" },
+            { fr: "Vingt", ukr: "Двадцять", larousse: "https://www.larousse.fr/dictionnaires/francais/vingt", reverso: "https://context.reverso.net/translation/french-english/vingt" },
+            { fr: "Trente", ukr: "Тридцять", larousse: "https://www.larousse.fr/dictionnaires/francais/trente", reverso: "https://context.reverso.net/translation/french-english/trente" },
+            { fr: "Cent", ukr: "Сто", larousse: "https://www.larousse.fr/dictionnaires/francais/cent", reverso: "https://context.reverso.net/translation/french-english/cent" },
+            { fr: "J'ai vingt ans", ukr: "Мені 20 років", larousse: "https://www.larousse.fr/dictionnaires/francais/an", reverso: "https://context.reverso.net/translation/french-english/J%27ai+vingt+ans" }
         ],
         flashcards: [
             { f: "Deux", b: "Два" },
@@ -451,21 +473,21 @@ const lessonsData = [
         title: "Урок 3 — Сім’я, родичі та зв'язки",
         shortDesc: "Опис своєї родини, сімейного стану та вивчення присвійних займенників (мій, моя).",
         img: "https://images.unsplash.com/photo-1511895426328-dc8714191300",
-        videoUrl: "https://www.youtube.com/embed/jZ_orLpE42M",
+        videoUrl: "https://www.youtube.com/embed/jZ_orLpE42M", // Тематичне відео про родину
         theory: `
             <h3>👨‍👩‍👧‍👦 Родина французькою</h3>
             <p>Тема сім'ї (<strong>La famille</strong>) є дуже важливою для повсякденного спілкування. Зверніть увагу на артиклі та займенники перед назвами родичів. Оскільки французька мова має граматичний рід, слова "мій" та "моя" змінюються залежно від роду родича.</p>
             <p>Для чоловічого роду використовується <strong>mon</strong> (mon père - мій тато), для жіночого — <strong>ma</strong> (ma mère - моя мама), а для множини — <strong>mes</strong> (mes parents - мої батьки).</p>
         `,
         vocabulary: [
-            { fr: "La famille", ukr: "Сім'я" },
-            { fr: "La mère", ukr: "Мати" },
-            { fr: "Le père", ukr: "Батько" },
-            { fr: "Le frère", ukr: "Брат" },
-            { fr: "La sœur", ukr: "Сестра" },
-            { fr: "Le fils", ukr: "Син" },
-            { fr: "La fille", ukr: "Донька" },
-            { fr: "Les parents", ukr: "Батьки" }
+            { fr: "La famille", ukr: "Сім'я", larousse: "https://www.larousse.fr/dictionnaires/francais/famille", reverso: "https://context.reverso.net/translation/french-english/la+famille" },
+            { fr: "La mère", ukr: "Мати", larousse: "https://www.larousse.fr/dictionnaires/francais/m%C3%A8re", reverso: "https://context.reverso.net/translation/french-english/la+mere" },
+            { fr: "Le père", ukr: "Батько", larousse: "https://www.larousse.fr/dictionnaires/francais/p%C3%A8re", reverso: "https://context.reverso.net/translation/french-english/le+pere" },
+            { fr: "Le frère", ukr: "Брат", larousse: "https://www.larousse.fr/dictionnaires/francais/fr%C3%A8re", reverso: "https://context.reverso.net/translation/french-english/le+frere" },
+            { fr: "La sœur", ukr: "Сестра", larousse: "https://www.larousse.fr/dictionnaires/francais/s%C5%93ur", reverso: "https://context.reverso.net/translation/french-english/la+soeur" },
+            { fr: "Le fils", ukr: "Син", larousse: "https://www.larousse.fr/dictionnaires/francais/fils", reverso: "https://context.reverso.net/translation/french-english/le+fils" },
+            { fr: "La fille", ukr: "Донька", larousse: "https://www.larousse.fr/dictionnaires/francais/fille", reverso: "https://context.reverso.net/translation/french-english/la+fille" },
+            { fr: "Les parents", ukr: "Батьки", larousse: "https://www.larousse.fr/dictionnaires/francais/parent", reverso: "https://context.reverso.net/translation/french-english/les+parents" }
         ],
         flashcards: [
             { f: "Le père", b: "Батько" },
@@ -488,7 +510,7 @@ const lessonsData = [
         title: "Урок 4 — Гастрономія, ресторани та їжа",
         shortDesc: "Кулінарні традиції Франції. Як зробити замовлення в ресторані та назви основних продуктів.",
         img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-        videoUrl: "https://www.youtube.com/embed/6i7_3g92YgY",
+        videoUrl: "https://www.youtube.com/embed/6i7_3g92YgY", // Французька їжа та замовлення в кафе
         theory: `
             <h3>🍽 Культура харчування</h3>
             <p>Французька гастрономія визнана нематеріальною культурною спадщиною ЮНЕСКО. Обід або вечеря у Франції — це цілий ритуал. Базові продукти, такі як багет (pain) та сир (fromage), є невід'ємною частиною раціону.</p>
@@ -496,14 +518,14 @@ const lessonsData = [
             <p>Щоб замовити щось ввічливо, використовуйте конструкцію умовно способу дієслова <em>vouloir</em>: <strong>Je voudrais...</strong> (Я хотів би...). Ніколи не кажіть просто назву продукту, додавайте наприкінці <em>s'il vous plaît</em>.</p>
         `,
         vocabulary: [
-            { fr: "Le pain", ukr: "Хліб" },
-            { fr: "Le fromage", ukr: "Сир" },
-            { fr: "L'eau", ukr: "Вода" },
-            { fr: "Le café", ukr: "Кава" },
-            { fr: "Le croissant", ukr: "Круасан" },
-            { fr: "Le petit-déjeuner", ukr: "Сніданок" },
-            { fr: "Je voudrais", ukr: "Я хотів би" },
-            { fr: "L'addition", ukr: "Рахунок (в кафе)" }
+            { fr: "Le pain", ukr: "Хліб", larousse: "https://www.larousse.fr/dictionnaires/francais/pain", reverso: "https://context.reverso.net/translation/french-english/le+pain" },
+            { fr: "Le fromage", ukr: "Сир", larousse: "https://www.larousse.fr/dictionnaires/francais/fromage", reverso: "https://context.reverso.net/translation/french-english/le+fromage" },
+            { fr: "L'eau", ukr: "Вода", larousse: "https://www.larousse.fr/dictionnaires/francais/eau", reverso: "https://context.reverso.net/translation/french-english/l%27eau" },
+            { fr: "Le café", ukr: "Кава", larousse: "https://www.larousse.fr/dictionnaires/francais/caf%C3%A9", reverso: "https://context.reverso.net/translation/french-english/le+cafe" },
+            { fr: "Le croissant", ukr: "Круасан", larousse: "https://www.larousse.fr/dictionnaires/francais/croissant", reverso: "https://context.reverso.net/translation/french-english/le+croissant" },
+            { fr: "Le petit-déjeuner", ukr: "Сніданок", larousse: "https://www.larousse.fr/dictionnaires/francais/petit-d%C3%A9jeuner", reverso: "https://context.reverso.net/translation/french-english/le+petit-dejeuner" },
+            { fr: "Je voudrais", ukr: "Я хотів би", larousse: "https://www.larousse.fr/dictionnaires/francais/vouloir", reverso: "https://context.reverso.net/translation/french-english/je+voudrais" },
+            { fr: "L'addition", ukr: "Рахунок", larousse: "https://www.larousse.fr/dictionnaires/francais/addition", reverso: "https://context.reverso.net/translation/french-english/l%27addition" }
         ],
         flashcards: [
             { f: "Le fromage", b: "Сир" },
@@ -614,21 +636,22 @@ function openLesson(idx, btnElement) {
         </div>
 
         <div class="content-section">
-            <h3>📺 Відеоурок до теми</h3>
+            <h3>📺 Французьке відео до теми</h3>
             <div class="video-wrapper">
                 <iframe src="${lesson.videoUrl}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
 
         <div class="content-section">
-            <h3>📘 Словник уроку (З вимовою)</h3>
-            <p style="color: var(--text-muted); margin-bottom: 15px;">Натисніть кнопку вимови, щоб почути правильне звучання слова.</p>
+            <h3>📘 Словник уроку та інтерактивні посилання</h3>
+            <p style="color: var(--text-muted); margin-bottom: 15px;">Слухай вимову або натискай на лінки, щоб розібрати слова в оригінальних словниках Франції.</p>
             <table class="vocab-table">
                 <thead>
                     <tr>
                         <th>Французька</th>
-                        <th>Вимова</th>
-                        <th>Переклад (Українська)</th>
+                        <th>Аудіо</th>
+                        <th>Аналіз у словниках</th>
+                        <th>Переклад</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -637,8 +660,14 @@ function openLesson(idx, btnElement) {
                             <td style="font-weight: bold; color: var(--primary); font-size: 17px;">${v.fr}</td>
                             <td>
                                 <button class="audio-btn" onclick="speakFrench('${v.fr.replace(/'/g, "\\'")}')">
-                                    🔊 Слухати
+                                    🔊 Вимова
                                 </button>
+                            </td>
+                            <td>
+                                <div class="dict-links">
+                                    <a class="dict-link" href="${v.larousse}" target="_blank">Larousse 📖</a>
+                                    <a class="dict-link" href="${v.reverso}" target="_blank">Reverso 🌐</a>
+                                </div>
                             </td>
                             <td>${v.ukr}</td>
                         </tr>
@@ -678,7 +707,6 @@ function openLesson(idx, btnElement) {
     window.scrollTo(0, 0);
 }
 
-// Браузерна вимова слів за допомогою Web Speech API
 function speakFrench(text) {
     if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -691,7 +719,6 @@ function speakFrench(text) {
     }
 }
 
-// Логіка інтерактивного тесту
 function renderQuizQuestion() {
     const state = window.currentQuizState;
     const lesson = lessonsData[state.lessonIndex];
