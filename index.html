@@ -373,7 +373,7 @@ body {
 </div>
 
 <script>
-// БАЗА ДАНИХ КУРСУ (Відео повністю відсутні)
+// БАЗА ДАНИХ КУРСУ
 const lessonsData = [
     {
         title: "Урок 1 — Основи комунікації та ввічливість",
@@ -581,7 +581,7 @@ function triggerLessonSelect(idx) {
     openLesson(idx, targetNavBtn);
 }
 
-// Функція відкриття сторінки уроку
+// Функція відкриття сторінки уроку (Конструктор HTML сторінки)
 function openLesson(idx, btnElement) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
@@ -598,6 +598,7 @@ function openLesson(idx, btnElement) {
         userAnswers: []
     };
 
+    // Структура контенту. Відео блоки виключені на рівні генерації рядка.
     let html = `
         <div class="lesson-header">
             <img src="${lesson.img}" alt="${lesson.title}">
