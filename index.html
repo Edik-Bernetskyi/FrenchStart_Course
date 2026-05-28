@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FrenchStart — Професійна навчальна платформа</title>
+<title>FrenchStart — Навчальний міні-курс</title>
 <style>
 :root {
     --bg-main: #0b0f19;
@@ -43,12 +43,13 @@ body {
 }
 
 .sidebar-header {
-    padding: 30px 25px;
+    padding: 25px 20px;
     background: linear-gradient(135deg, #1e40af, #6d28d9);
     text-align: center;
 }
 
-.sidebar-header h1 { font-size: 26px; font-weight: 800; letter-spacing: 0.5px; }
+.sidebar-header h1 { font-size: 26px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; }
+.sidebar-header p { font-size: 13px; color: #e2e8f0; opacity: 0.9; font-style: italic; line-height: 1.4; }
 
 .sidebar-menu {
     overflow-y: auto;
@@ -145,9 +146,9 @@ body {
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-.lesson-card img { width: 100%; height: 180px; object-fit: cover; }
+.lesson-card img { width: 100%; height: 200px; object-fit: cover; }
 .card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-.card-body h3 { font-size: 20px; margin-bottom: 10px; color: var(--text-main); }
+.card-body h3 { font-size: 19px; margin-bottom: 10px; color: var(--text-main); line-height: 1.4; }
 .card-body p { color: var(--text-muted); font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
 
 .btn {
@@ -193,14 +194,14 @@ body {
 }
 
 /* Lesson Page Styling */
-.lesson-header { position: relative; margin-bottom: 35px; border-radius: 20px; overflow: hidden; height: 300px; }
+.lesson-header { position: relative; margin-bottom: 35px; border-radius: 20px; overflow: hidden; height: 320px; }
 .lesson-header img { width: 100%; height: 100%; object-fit: cover; }
 .lesson-header-overlay { 
     position: absolute; bottom: 0; left: 0; right: 0; 
     background: linear-gradient(transparent, rgba(11,15,25,0.95)); 
     padding: 40px; 
 }
-.lesson-header h2 { font-size: 40px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+.lesson-header h2 { font-size: 36px; text-shadow: 0 2px 4px rgba(0,0,0,0.6); }
 
 .content-section {
     background-color: var(--bg-card);
@@ -340,7 +341,8 @@ body {
 <!-- Навігаційне меню -->
 <div class="sidebar">
     <div class="sidebar-header">
-        <h1>🇫🇷 FrenchStart</h1>
+        <h1>FrenchStart</h1>
+        <p>Навчальний міні-курс для учнів 7–9 класів</p>
     </div>
     <div class="sidebar-menu" id="sidebarMenu">
         <div class="menu-title">Головна сторінка</div>
@@ -359,8 +361,8 @@ body {
     <!-- Екран: Головна панель -->
     <div id="screen-home" class="screen active-screen">
         <div class="welcome-banner">
-            <h2>Bonjour, mon ami! 👋</h2>
-            <p>Ласкаво просимо на оновлену інтерактивну платформу. Тут інтегровано інтерактивні французькі словники для глибокого аналізу лексики. Проходь теорію, слухай правильну вимову, використовуй картки для запам'ятовування та перевіряй себе в тестах.</p>
+            <h2>Bonjour, розробнику! 👋</h2>
+            <p>Ласкаво просимо на оновлену інтерактивну платформу без відео. Тут інтегровано інтерактивні французькі словники для глибокого аналізу лексики, адаптовані під шкільну програму середніх класів. Проходь теорію, слухай правильну вимову, використовуй картки та здавай тести.</p>
         </div>
         
         <h2 style="margin-bottom: 20px; font-size: 24px;">🗂 Доступні навчальні модулі</h2>
@@ -373,12 +375,13 @@ body {
 </div>
 
 <script>
-// БАЗА ДАНИХ КУРСУ
+// БАЗА ДАНИХ КУРСУ (Оновлено тематичні зображення Франції)
 const lessonsData = [
     {
         title: "Урок 1 — Основи комунікації та ввічливість",
         shortDesc: "Вивчення базових привітань, прощань та перших фраз для інтеграції у французьке середовище.",
-        img: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a",
+        // Фото: Ейфелева вежа з класичним паризьким привітанням / атмосферою вулиць
+        img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=800&auto=format&fit=crop",
         theory: `
             <h3>🗣 Правила ввічливості у Франції</h3>
             <p>У французькій культурі слово <strong>Bonjour</strong> є фундаментальним. Якщо ви заходите в магазин, кафе чи автобус і не кажете "Bonjour", це сприймається як груба неповага. Французи дуже чітко розмежовують офіційний та дружній регістри спілкування.</p>
@@ -416,12 +419,13 @@ const lessonsData = [
     {
         title: "Урок 2 — Числа, час та вік",
         shortDesc: "Опанування лічби, базових математичних понять, вираження свого віку та розуміння годинника.",
-        img: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd",
+        // Фото: Знаменитий вінтажний годинник на фасаді музею д'Орсе в Парижі
+        img: "https://images.unsplash.com/photo-1508050919630-b136574cf99e?q=80&w=800&auto=format&fit=crop",
         theory: `
             <h3>🔢 Особливості французької системи лічби</h3>
-            <p>Французька лічба — одна з найцікавіших у світі. На перших етапах вона стандартна, але починаючи з числа 70, французи використовують математичну логіку. Наприклад, щоб сказати "сімдесят", вони кажуть "шістдесят і десять" (soixante-dix). А "вісімдесят" — це "чотири рази по двадцять" (quatre-vingts).</p>
+            <p>Французька лічба — одна з найцікавіших у світі. На перших етапах вона стандартна, але починаючи з числа 70, французи використовують математичну логіку. Наприклад, щоб сказати "сімдесят", вони кажуть "шістдесят і десять" (soixante-dix). А "вісімдесят" — це "чотири рази по двадчять" (quatre-vingts).</p>
             <h3>⏳ Вік та години</h3>
-            <p>На відміну від української мови, де ми кажемо "Мені є 20 років", французи використовують дієслово <strong>avoir</strong> (мати). Дослівно вони кажуть: "Я маю 20 років" -> <em>J'ai vingt ans</em>.</p>
+            <p>На відміну від української мови, де мы кажемо "Мені є 20 років", французи використовують дієслово <strong>avoir</strong> (мати). Дослівно вони кажуть: "Я маю 20 років" -> <em>J'ai vingt ans</em>.</p>
         `,
         vocabulary: [
             { fr: "Un", ukr: "Один", larousse: "https://www.larousse.fr/dictionnaires/francais/un", reverso: "https://context.reverso.net/translation/french-english/un" },
@@ -453,7 +457,8 @@ const lessonsData = [
     {
         title: "Урок 3 — Сім’я, родичі та зв'язки",
         shortDesc: "Опис своєї родини, сімейного стану та вивчення присвійних займенників (мій, моя).",
-        img: "https://images.unsplash.com/photo-1511895426328-dc8714191300",
+        // Фото: Французька родина на прогулянці або пікніку біля затишного шато
+        img: "https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?q=80&w=800&auto=format&fit=crop",
         theory: `
             <h3>👨‍👩‍👧‍👦 Родина французькою</h3>
             <p>Тема сім'ї (<strong>La famille</strong>) є дуже важливою для повсякденного спілкування. Зверніть увагу на артиклі та займенники перед назвами родичів. Оскільки французька мова має граматичний рід, слова "мій" та "моя" змінюються залежно від роду родича.</p>
@@ -487,9 +492,10 @@ const lessonsData = [
         ]
     },
     {
-        title: "Урок 4 — Гастрономія, ресторани та їжа",
+        title: "Урок 4 — Гастрономія, ресторана та їжа",
         shortDesc: "Кулінарні традиції Франції. Як зробити замовлення в ресторані та назви основних продуктів.",
-        img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+        // Фото: Свіжі французькі круасани та кава в паризькому бістро
+        img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800&auto=format&fit=crop",
         theory: `
             <h3>🍽 Культура харчування</h3>
             <p>Французька гастрономія визнана нематеріальною культурною спадщиною ЮНЕСКО. Обід або вечеря у Франції — це цілий ритуал. Базові продукти, такі як багет (pain) та сир (fromage), є невід'ємною частиною раціону.</p>
@@ -581,7 +587,7 @@ function triggerLessonSelect(idx) {
     openLesson(idx, targetNavBtn);
 }
 
-// Функція відкриття сторінки уроку (Конструктор HTML сторінки)
+// Функція відкриття сторінки уроку
 function openLesson(idx, btnElement) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
@@ -598,7 +604,6 @@ function openLesson(idx, btnElement) {
         userAnswers: []
     };
 
-    // Структура контенту. Відео блоки виключені на рівні генерації рядка.
     let html = `
         <div class="lesson-header">
             <img src="${lesson.img}" alt="${lesson.title}">
@@ -753,9 +758,9 @@ function renderQuizResults() {
     let feedback = "";
     
     if (percentage === 100) feedback = "🏆 Чудово! Ідеальний результат!";
-    else if (percentage >= 75) feedback = "✨ Дуже добре! Ви маєте глибокі знання.";
+    else if (percentage >= 75) feedback = "✨ Дуже добре! Ти маєш глибокі знання.";
     else if (percentage >= 50) feedback = "👍 Задовільно. Рекомендуємо повторити матеріал.";
-    else feedback = "📚 Спробуйте пройти цей урок заново.";
+    else feedback = "📚 Спробуй пройти цей урок заново.";
 
     container.innerHTML = `
         <div class="quiz-results-summary">
